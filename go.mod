@@ -1,3 +1,3 @@
-module github.com/groob/plist
+module github.com/Lightspeed-Systems/plist
 
-go 1.14
+go 1.21
