@@ -88,7 +88,9 @@ func (e *Encoder) marshal(v reflect.Value) (*plistValue, error) {
 	if v.Kind() == reflect.Interface && v.NumMethod() == 0 || v.Kind() == reflect.Ptr {
 		v = v.Elem()
 	}
-
+	if !v.IsValid() {
+		return nil, nil
+	}
 	// check for time type
 	if v.Type() == reflect.TypeOf((*time.Time)(nil)).Elem() {
 		if date, ok := v.Interface().(time.Time); ok {

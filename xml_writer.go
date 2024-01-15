@@ -42,6 +42,9 @@ func (e *xmlEncoder) generateDocument(pval *plistValue) error {
 	}
 
 	tokenFunc := func(pval *plistValue) error {
+		if pval == nil {
+			return nil
+		}
 		if err := e.writePlistValue(pval); err != nil {
 			return err
 		}
@@ -164,6 +167,9 @@ func (e *xmlEncoder) writeDictionaryValue(pval *plistValue) error {
 		dict := encodedValue.(*dictionary)
 		dict.populateArrays()
 		for i, k := range dict.keys {
+			if dict.values[i] == nil {
+				continue
+			}
 			if err := e.EncodeElement(k, xml.StartElement{Name: xml.Name{Local: "key"}}); err != nil {
 				return err
 			}
